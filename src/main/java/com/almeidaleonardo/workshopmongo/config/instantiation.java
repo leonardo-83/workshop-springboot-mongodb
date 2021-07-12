@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.almeidaleonardo.workshopmongo.domain.Post;
 import com.almeidaleonardo.workshopmongo.domain.User;
+import com.almeidaleonardo.workshopmongo.dto.AuthorDTO;
 import com.almeidaleonardo.workshopmongo.repository.PostRepository;
 import com.almeidaleonardo.workshopmongo.repository.UserRepository;
 
@@ -32,13 +33,14 @@ public class instantiation implements CommandLineRunner {
 		postRepository.deleteAll();
 		
 		User maria = new User(null, "Maria Amelia", "maria@gmail.com");
-		User alex = new User(null, "Joao da Silva", "joao@gmail.com");
-		User bob = new User(null, "Mario Andrade", "mario@gmail.com");
+		User joao = new User(null, "Joao da Silva", "joao@gmail.com");
+		User mario = new User(null, "Mario Andrade", "mario@gmail.com");
 		
-		Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu viagem!", "Vou viajar para Sao Paulo, abraços!", maria);
-		Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia!", "Acordei feliz hoje!", maria);
+		userRepository.saveAll(Arrays.asList(maria, joao, mario));
+
+		Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu viagem!", "Vou viajar para Sao Paulo, abraços!", new AuthorDTO(maria));
+		Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia!", "Acordei feliz hoje!", new AuthorDTO(maria));
 		
-		userRepository.saveAll(Arrays.asList(maria, alex, bob));
 		postRepository.saveAll(Arrays.asList(post1, post2));
 	}
 
